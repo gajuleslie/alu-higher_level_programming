@@ -2,22 +2,69 @@
 >>> bg = BaseGeometry()
 >>> bg.integer_validator("my_int", 12)
 >>> bg.integer_validator("width", 89)
->>> bg.integer_validator("name", "John")
-Traceback (most recent call last):
-    ...
-TypeError: name must be an integer
->>> bg.integer_validator("age", 0)
-Traceback (most recent call last):
-    ...
-ValueError: age must be greater than 0
->>> bg.integer_validator("distance", -4)
-Traceback (most recent call last):
-    ...
-ValueError: distance must be greater than 0
->>> bg.integer_validator("height", 5.5)
-Traceback (most recent call last):
-    ...
-TypeError: height must be an integer
+>>> bg.integer_validator("age", 1)
+>>> bg.integer_validator("age", 21)
+
+>>> try:
+...     bg.integer_validator()
+... except TypeError as e:
+...     print("TypeError")
+TypeError
+
+>>> try:
+...     bg.integer_validator("age")
+... except TypeError as e:
+...     print("TypeError")
+TypeError
+
+>>> try:
+...     bg.integer_validator("age", 0)
+... except ValueError as e:
+...     print(e)
+age must be greater than 0
+
+>>> try:
+...     bg.integer_validator("age", -4)
+... except ValueError as e:
+...     print(e)
+age must be greater than 0
+
+>>> try:
+...     bg.integer_validator("age", "4")
+... except TypeError as e:
+...     print(e)
+age must be an integer
+
+>>> try:
+...     bg.integer_validator("age", (4,))
+... except TypeError as e:
+...     print(e)
+age must be an integer
+
+>>> try:
+...     bg.integer_validator("age", [3])
+... except TypeError as e:
+...     print(e)
+age must be an integer
+
+>>> try:
+...     bg.integer_validator("age", True)
+... except TypeError as e:
+...     print(e)
+age must be an integer
+
+>>> try:
+...     bg.integer_validator("age", {3, 4})
+... except TypeError as e:
+...     print(e)
+age must be an integer
+
+>>> try:
+...     bg.integer_validator("age", None)
+... except TypeError as e:
+...     print(e)
+age must be an integer
+
 >>> bg.area()
 Traceback (most recent call last):
     ...
