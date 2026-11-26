@@ -1,0 +1,19 @@
+#!/usr/bin/python3
+"""List states matching a name safely with a parameterized query."""
+
+import sys
+
+import MySQLdb
+
+
+if __name__ == "__main__":
+    connection = MySQLdb.connect(host="localhost", port=3306,
+                                 user=sys.argv[1], passwd=sys.argv[2],
+                                 db=sys.argv[3], charset="utf8")
+    cursor = connection.cursor()
+    query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
+    cursor.execute(query, (sys.argv[4],))
+    for row in cursor.fetchall():
+        print(row)
+    cursor.close()
+    connection.close()
