@@ -3,7 +3,7 @@
 
 import sys
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker
 
 from model_state import Base, State
@@ -16,7 +16,8 @@ if __name__ == "__main__":
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     session = Session()
-    state = session.query(State).filter(State.name == sys.argv[4]).first()
+    state = session.query(State).filter(
+        func.binary(State.name) == sys.argv[4]).first()
     if state is None:
         print("Not found")
     else:
