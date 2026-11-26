@@ -5,7 +5,8 @@ import requests
 
 
 if __name__ == "__main__":
-    response = requests.get("https://alu-intranet.hbtn.io/status")
+    url = "https://intranet.hbtn.io/status"
+    response = requests.get(url)
     body = response.text
     print("Body response:")
     print("\t- type: {}".format(type(body)))
