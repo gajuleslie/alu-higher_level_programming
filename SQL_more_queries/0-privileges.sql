@@ -1,4 +1,4 @@
--- Lists all privileges of the user user_0d_1 on localhost
+-- Lists all privileges of the MySQL users user_0d_1 and user_0d_2 on localhost
+-- The users are checked on localhost as required by the project
 SHOW GRANTS FOR 'user_0d_1'@'localhost';
--- Lists all privileges of the user user_0d_2 on localhost
 SHOW GRANTS FOR 'user_0d_2'@'localhost';
