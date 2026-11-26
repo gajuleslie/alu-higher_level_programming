@@ -61,6 +61,20 @@ class TestSquare(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "width must be > 0"):
                     Square(value)
 
+    def test_x_validation(self):
+        """x rejects non-integers and negative values."""
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            Square(1, "2")
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            Square(1, -2)
+
+    def test_y_validation(self):
+        """y rejects non-integers and negative values."""
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Square(1, 2, "3")
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
+            Square(1, 2, -3)
+
     def test_area(self):
         """Area returns the size squared."""
         self.assertEqual(Square(5).area(), 25)
@@ -119,6 +133,14 @@ class TestSquare(unittest.TestCase):
         filename = "Square.json"
         self.addCleanup(self._remove_file, filename)
         Square.save_to_file(None)
+        with open(filename, "r", encoding="utf-8") as file:
+            self.assertEqual(file.read(), "[]")
+
+    def test_save_to_file_empty_list(self):
+        """Saving an empty list writes an empty JSON array."""
+        filename = "Square.json"
+        self.addCleanup(self._remove_file, filename)
+        Square.save_to_file([])
         with open(filename, "r", encoding="utf-8") as file:
             self.assertEqual(file.read(), "[]")
 

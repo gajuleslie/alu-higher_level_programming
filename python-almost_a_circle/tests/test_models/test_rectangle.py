@@ -178,6 +178,14 @@ class TestRectangle(unittest.TestCase):
         with open(filename, "r", encoding="utf-8") as file:
             self.assertEqual(file.read(), "[]")
 
+    def test_save_to_file_empty_list(self):
+        """Saving an empty list writes an empty JSON array."""
+        filename = "Rectangle.json"
+        self.addCleanup(self._remove_file, filename)
+        Rectangle.save_to_file([])
+        with open(filename, "r", encoding="utf-8") as file:
+            self.assertEqual(file.read(), "[]")
+
     def test_save_and_load_from_file(self):
         """Saved rectangles are reloaded with matching attributes."""
         filename = "Rectangle.json"
